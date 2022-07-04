@@ -1,0 +1,54 @@
+.info-page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 30px;
+}
+
+.info-page__unit{
+    display: inline;
+}
+
+.info-page textarea, .info-page input{
+    font-size: 24px;
+}
+
+.info-page__block-name{
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 30px;
+    margin-bottom: 30px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.data-changing{
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    align-items: center;
+}
+.data-changing-button{
+    font-size: 24px;
+    margin: 20px;
+    width: 700px;
+}
+
+.textarea{
+    width: 80%;
+    resize: none;
+    height: 200px;
+}
+
+.textarea-comment{
+    width: 600px;
+    resize: none;
+    height: 100px;
+    margin: 15px;
+}
+
+.name{
+    width: 30%;
+}

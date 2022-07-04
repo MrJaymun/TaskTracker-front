@@ -1,11 +1,10 @@
 <template>
-  <div @dragstart="onDragStart($event, id)"
+  <div class="kanban__unit" @dragstart="onDragStart($event, id)"
        draggable="true">
     <p>{{this.task_name}}</p>
-    <p>Статус: {{this.task_status}}</p>
     <p>Исполнитель: {{this.task_performer}}</p>
     <p>Всего комментариев: {{this.comments}}</p>
-    <button @click="goToTask">Подробнее</button>
+    <button class="button" style="--clr:#ffff00" @click="goToTask"><span>Подробнее</span><i></i></button>
   </div>
 </template>
 

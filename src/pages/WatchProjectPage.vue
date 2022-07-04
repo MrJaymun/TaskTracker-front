@@ -1,33 +1,45 @@
 <template>
-  <div>
-    <div>
-      <p>Вы вошли как {{this.login}}</p>
-      <button @click="$router.push('/')">На главную</button>
-      <button @click="$router.push('/changePassword')">Изменить пароль</button>
-      <button @click="$router.push('/createProject')">Создать проект</button>
-      <button @click="$router.push('/auth')">Выйти</button>
+  <div class="body">
+    <div class="header" v-show="!showModal">
+
+      <div class="entered">
+        <div class="entered__hello">
+          <p>Вы вошли как {{this.login}}</p>
+          <img src='@/assets/arrowdown.png' alt="Раскрыть список"/>
+        </div>
+
+
+        <div class="entered__buttons">
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/')"><span>На главную</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/changePassword')"><span>Изменить пароль</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/createProject')"><span>Создать проект</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/auth')"><span>Выйти</span><i></i></button>
+        </div>
+      </div>
+
     </div>
 
-    <div>
-      <p>{{this.name}}</p>
-      <p>Описание проекта:</p>
-      <textarea v-model="description" class="textarea" readonly></textarea>
-      <p>Автор проекта:</p>
-      <p>{{this.author}}</p>
-      <p>Участники проекта:</p>
 
-      <div v-for="user in this.users" v-bind:key="user">
+    <div class="info-page">
+      <p v-show="!showModal" class="info-page__block-name">Проект</p>
+      <p v-show="!showModal">{{this.name}}</p>
+      <p v-show="!showModal" class="info-page__block-name">Описание проекта</p>
+      <textarea v-show="!showModal" v-model="description" class="textarea" readonly></textarea>
+      <p v-show="!showModal">Автор проекта:&nbsp;&nbsp;&nbsp;{{this.author}} </p>
+      <p v-show="!showModal" class="info-page__block-name">Участники проекта</p>
+
+      <div v-show="!showModal" v-for="user in this.users" v-bind:key="user">
         {{user}}
       </div>
-      <button @click="joinProject">Стать участником</button>
+      <button v-show="!showModal" class="button data-changing-button" style="--clr:#ffff00" @click="joinProject"><span>Стать участником</span><i></i></button>
       <div v-show="showModal">
-        <div class="auth__modal-background">
+        <div class="modal-background">
 
         </div>
-        <div  class="auth__modal-text-part">
+        <div class="modal-text-part form-wide-modal">
           <p>{{this.textModal}}</p>
-          <button class="auth__form-button" @click="toProjectMainPage">
-            ПОНЯТНО
+          <button class="button" style="--clr:#00ff00" @click="toProjectMainPage">
+            <span>Понятно</span><i></i>
           </button>
         </div>
       </div>
@@ -100,10 +112,6 @@ export default {
 </script>
 
 <style scoped>
-.textarea{
-  width: 80%;
-  resize: none;
-  height: 200px;
-}
+
 
 </style>

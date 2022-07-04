@@ -1,23 +1,27 @@
 <template>
-  <div class="body">
-  <form @submit.prevent="tryToLogin">
-    <p>Логин<input v-model="login" placeholder="Английские буквы и цифры" minlength="5" maxlength="20"></p>
-    <p>Пароль<input v-model="password"  type="password" placeholder="Английские буквы и цифры" minlength="5" maxlength="20"></p>
-    <button type="submit">Войти</button>
-    <button @click="$router.push('/register')">К регистрации</button>
+  <div class="page-form">
+  <div>
+  <form v-show="!showModal" @submit.prevent="tryToLogin">
+    <p>Логин<input v-model="login"  minlength="5" maxlength="12"></p>
+    <p>Пароль<input v-model="password"  type="password" minlength="5" maxlength="20"></p>
+    <button class="button" type="submit" style="--clr:#ffff00"><span>Войти</span><i></i></button>
+    <button class="button " style="--clr:#ffff00" @click="$router.push('/register')"><span>К регистрации</span><i></i></button>
   </form>
   <div v-show="showModal">
-    <div class="auth__modal-background">
+    <div class="modal-background">
 
     </div>
-    <div  class="auth__modal-text-part">
-      <p>{{this.textModal}}</p>
-      <button class="auth__form-button" @click="closeModal()">
-        ПОНЯТНО
-      </button>
+    <div class="modal-text-part">
+
+        <p>{{this.textModal}}</p>
+        <button class="button" style="--clr:#00ff00"  @click="closeModal">
+          <span>Понятно</span><i></i>
+        </button>
+
     </div>
   </div>
 
+  </div>
   </div>
 </template>
 
@@ -92,6 +96,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

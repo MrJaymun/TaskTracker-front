@@ -1,28 +1,39 @@
 <template>
-  <div>
-    <div>
-      <p>Вы вошли как {{this.login}}</p>
-      <button @click="$router.push('/')">На главную</button>
-      <button>Изменить пароль</button>
-      <button @click="$router.push('/createProject')">Создать проект</button>
-      <button @click="$router.push('/auth')">Выйти</button>
+  <div >
+    <div class="header" v-show="!showModal">
+
+      <div class="entered">
+        <div class="entered__hello">
+          <p>Вы вошли как {{this.login}}</p>
+          <img src='@/assets/arrowdown.png' alt="Раскрыть список"/>
+        </div>
+
+
+        <div class="entered__buttons">
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/')"><span>На главную</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/changePassword')"><span>Изменить пароль</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/createProject')"><span>Создать проект</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/auth')"><span>Выйти</span><i></i></button>
+        </div>
+      </div>
+
     </div>
-    <div>
-      <form @submit.prevent="tryToLogin">
-        <p>Старый пароль<input type="password" v-model="password" placeholder="Английские буквы и цифры" minlength="5" maxlength="20"></p>
-        <p>Новый пароль<input type="password" v-model="newPassword" placeholder="Английские буквы и цифры" minlength="5" maxlength="20"></p>
-        <p>Повторите новый пароль<input type="password" v-model="newPasswordAgain" placeholder="Английские буквы и цифры" minlength="5" maxlength="20"></p>
-        <button type="submit">ВОЙТИ</button>
+    <div  class="page-form">
+      <form v-show="!showModal" @submit.prevent="tryToLogin" class="change-password">
+        <p>Старый пароль<input type="password" v-model="password"  minlength="5" maxlength="20"></p>
+        <p>Новый пароль<input type="password" v-model="newPassword"  minlength="5" maxlength="20"></p>
+        <p>Повторите новый пароль<input type="password" v-model="newPasswordAgain" minlength="5" maxlength="20"></p>
+        <button class="button" style="--clr:#ffff00"  type="submit"><span>Изменить пароль</span><i></i></button>
       </form>
 
       <div v-show="showModal">
-        <div class="auth__modal-background">
+        <div class="modal-background">
 
         </div>
-        <div  class="auth__modal-text-part">
+        <div class="modal-text-part">
           <p>{{this.textModal}}</p>
-          <button class="auth__form-button" @click="closeModal()">
-            ПОНЯТНО
+          <button class="button" style="--clr:#00ff00"  @click="closeModal()">
+            <span>Понятно</span><i></i>
           </button>
         </div>
       </div>

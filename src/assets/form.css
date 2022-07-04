@@ -1,0 +1,27 @@
+form{
+    border: 1px solid #878787;
+    padding: 30px;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+
+}
+
+form input, form textarea{
+    float: right;
+    margin-right: 10px;
+}
+form button{
+    width: 65%;
+    margin: 3px;
+}
+form textarea{
+    width: 100%;
+    resize: none;
+    height: 100px;
+}
+
+form:hover{
+    box-shadow: 0 0 35px #878787;
+    transition: 0.5s;
+}

@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div class="list__unit">
     <p>Автор: {{this.comment_author}}</p>
     <p>Дата: {{this.comment_date}}</p>
-    <textarea v-model="comment_text" class="textarea" :readonly=noChanging></textarea>
-    <button  v-if="letChange" @click="beginChanging">Изменить</button>
-    <button  v-if="!noChanging" @click="this.noChanging = true">Отменить</button>
-    <button  v-if="!noChanging" @click="changeData">Сохранить</button>
-    <button v-if="letChange" @click="this.deleting = true">Удалить</button>
-    <button v-if="deleting" @click="this.deleting = false">Отменить удаление</button>
-    <button v-if="deleting" @click="deleteCom">Подтвердить удаление</button>
+    <textarea v-model="comment_text" class="textarea-comment" :readonly=noChanging maxlength="200"></textarea>
+    <button class="button comment-button" style="--clr:#ffff00" v-if="letChange && noChanging" @click="beginChanging"><span>Изменить</span><i></i></button>
+    <button class="button comment-button"  style="--clr:#ffff00" v-if="!noChanging" @click="this.noChanging = true"><span>Отменить изменения</span><i></i></button>
+    <button class="button comment-button" style="--clr:#ffff00" v-if="!noChanging" @click="changeData"><span>Сохранить изменения</span><i></i></button>
+    <button class="button comment-button" style="--clr:#ffff00" v-if="letChange && !deleting" @click="this.deleting = true"><span>Удалить</span><i></i></button>
+    <button class="button comment-button" style="--clr:#ffff00" v-if="deleting" @click="this.deleting = false"><span>Отменить удаление</span><i></i></button>
+    <button class="button comment-button" style="--clr:#ffff00" v-if="deleting" @click="deleteCom"><span>Подтвердить удаление</span><i></i></button>
   </div>
 </template>
 

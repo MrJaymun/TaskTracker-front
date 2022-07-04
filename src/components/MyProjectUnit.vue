@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div class="list__unit">
     <p>{{this.project_name}}</p>
     <p>Создатель : {{this.project_author}}</p>
     <p v-if="isPer">Это ваш личный проект</p>
     <p v-if="!isPer">Пользователей на проекте: {{this.userCount}}</p>
-    <button @click="goToProject">Открыть</button>
+    <button class="button list-button" style="--clr:#ffff00" @click="goToProject"><span>Открыть</span><i></i></button>
   </div>
 </template>
 

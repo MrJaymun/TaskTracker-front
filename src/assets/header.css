@@ -1,0 +1,60 @@
+.header{
+    border-bottom: 1px solid #878787;
+    padding: 10px 5% 10px 10px;
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+
+.body{
+
+    min-height: 100vh;
+    background-color: #27282c;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+.entered__buttons{
+    display: none;
+}
+.entered__buttons button{
+    margin-bottom: 5px;
+    animation: ani 0.75s;
+}
+.entered__buttons button:hover{
+    letter-spacing: 0.1em;
+}
+.entered{
+    text-align: right;
+
+}
+.entered:hover  .entered__buttons{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 5%;
+    width: 350px;
+
+}
+
+.entered__hello{
+    font-size: 32px;
+    display: flex;
+    align-items: center;
+
+}
+.entered__hello img{
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    border-radius: 50%;
+    border: 1px solid #878787;
+    padding: 1px;
+}
+
+@keyframes ani {
+    0% { opacity: 0.1}
+    100% {opacity: 1}
+}
+
+

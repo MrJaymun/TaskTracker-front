@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="list__unit">
     <p>{{this.project_name}}</p>
     <p>Создатель : {{this.project_author}}</p>
     <p>Пользователей на проекте: {{this.userCount}}</p>
-    <button @click="watchProject">Посмотреть</button>
+    <button class="button" style="--clr:#ffff00" @click="watchProject"><span>Посмотреть</span><i></i></button>
   </div>
 </template>
 

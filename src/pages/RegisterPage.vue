@@ -1,24 +1,26 @@
 <template>
-  <div>
-    <form @submit.prevent="tryToRegister">
-      <p>Логин<input v-model="login" placeholder="Английские буквы и цифры" minlength="5" maxlength="20"></p>
-      <p>Пароль<input type="password" v-model="password" placeholder="Английские буквы и цифры" minlength="5" maxlength="20"></p>
-      <p>Повторите пароль<input type="password" v-model="repeatPassword" placeholder="Английские буквы и цифры" minlength="5" maxlength="20"></p>
-      <button type="submit">РЕГИСТРАЦИЯ</button>
-      <button @click="$router.push('/auth')">К авторизации</button>
+  <div class="page-form">
+    <form v-show="!showModal" @submit.prevent="tryToRegister">
+      <p>Логин<input v-model="login"  minlength="5" maxlength="12"></p>
+      <p>Пароль<input type="password" v-model="password"  minlength="5" maxlength="20"></p>
+      <p>Повторите пароль<input type="password" v-model="repeatPassword"  minlength="5" maxlength="20"></p>
+      <button class="button" type="submit" style="--clr:#ffff00"><span>Регистрация</span><i></i></button>
+      <button class="button" style="--clr:#ffff00" @click="$router.push('/auth')"><span>К авторизации</span><i></i></button>
     </form>
     <div v-show="showModal">
-      <div class="auth__modal-background">
+      <div class="modal-background">
 
       </div>
-      <div>
+      <div class="modal-text-part">
+
         <p>{{this.textModal}}</p>
-        <button v-show="isBad" @click="closeModal">
-        ПОНЯТНО
+        <button class="button" style="--clr:#00ff00" v-show="isBad" @click="closeModal">
+          <span>Понятно</span><i></i>
         </button>
-        <button v-show="isAdded" @click="goToAuth">
-          ОТЛИЧНО
+        <button class="button" style="--clr:#00ff00" v-show="isAdded" @click="goToAuth">
+          <span>Отлично</span><i></i>
         </button>
+
       </div>
     </div>
   </div>

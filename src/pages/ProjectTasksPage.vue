@@ -1,29 +1,54 @@
 <template>
-  <div>
-    <div>
-      <p>Вы вошли как {{this.login}}</p>
-      <button @click="$router.push('/')">На главную</button>
-      <button @click="$router.push('/changePassword')">Изменить пароль</button>
-      <button @click="$router.push('/createProject')">Создать проект</button>
-      <button @click="$router.push('/auth')">Выйти</button>
+  <div class="body">
+    <div class="header">
+
+      <div class="entered" @mouseover="hideNav = true" @mouseleave="hideNav = false">
+        <div class="entered__hello">
+          <p>Вы вошли как {{this.login}}</p>
+          <img src='@/assets/arrowdown.png' alt="Раскрыть список"/>
+        </div>
+
+
+        <div class="entered__buttons">
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/')"><span>На главную</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/changePassword')"><span>Изменить пароль</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/createProject')"><span>Создать проект</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/auth')"><span>Выйти</span><i></i></button>
+        </div>
+      </div>
+
     </div>
 
+
     <div>
 
-      <div>
-        <button @click="$router.push('/projectMain')">Главная страница</button>
-        <button @click="$router.push('/createTask')">Добавить задачу</button>
-        <button @click="$router.push('/kanban')">Доска активных задач</button>
-        <button>Список задач</button>
+      <div class="project-header">
+
+        <div class="project-nav" v-if="!hideNav">
+          <button data-text="Главная страница" @click="$router.push('/projectMain')">Главная страница</button>
+          <button data-text="Добавить задачу" @click="$router.push('/createTask')">Добавить задачу</button>
+          <button data-text="Доска активных задач" @click="$router.push('/kanban')">Доска активных задач</button>
+          <button data-text="Список задач">Список задач</button>
+        </div>
+
+        <div class="project-nav  balancer" v-if="hideNav">
+        </div>
       </div>
+      <div class="list">
+
+        <div class="list__filter-task">
       <p v-if="!isEmpty" >Введите название задачи</p>
       <input v-if="!isEmpty" v-model="filtered">
+
       <p v-if="!isEmpty" >Выберите статус</p>
       <select v-if="!isEmpty" v-model="status">
+
+
         <option v-for="status in this.statuses" v-bind:value="status.value" v-bind:key="status.value">
           {{status.text}}
         </option>
       </select>
+        </div>
 
       <TaskListUnit v-for="task in this.filteredList"
                     :key="task.id"
@@ -41,7 +66,7 @@
       <div v-if="isEmpty">
         Пока что нет задач
       </div>
-
+      </div>
     </div>
   </div>
 </template>
@@ -68,7 +93,8 @@ export default {
         { text: 'Done', value: 'Done'}
       ],
       status: '',
-      filtered: ''
+      filtered: '',
+      hideNav: false
 
     }
   },

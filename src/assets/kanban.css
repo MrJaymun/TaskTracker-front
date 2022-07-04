@@ -1,0 +1,9 @@
+.kanban__main{
+    display: grid;
+    grid-template-columns: repeat(3, 30%);
+    justify-content: space-around;
+}
+.kanban__slave{
+    margin-left: 2%;
+    text-align: center;
+}

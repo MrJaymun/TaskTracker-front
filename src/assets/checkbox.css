@@ -1,0 +1,12 @@
+.checkbox input[type=checkbox] {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+
+    background-image: url('./checkbox-f.png');
+    cursor: pointer;
+}
+
+.checkbox input[type=checkbox]:checked {
+    background-image: url('./checkbox-t.png');
+}

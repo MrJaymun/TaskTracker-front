@@ -1,51 +1,80 @@
 <template>
-  <div>
-    <div>
-      <p>Вы вошли как {{this.login}}</p>
-      <button @click="$router.push('/')">На главную</button>
-      <button @click="$router.push('/changePassword')">Изменить пароль</button>
-      <button @click="$router.push('/createProject')">Создать проект</button>
-      <button @click="$router.push('/auth')">Выйти</button>
-    </div>
+  <div class="body">
+    <div class="header" v-show="!showModal">
 
-    <div>
+      <div class="entered" @mouseover="hideNav = true" @mouseleave="hideNav = false" >
+        <div class="entered__hello">
+          <p>Вы вошли как {{this.login}}</p>
+          <img src='@/assets/arrowdown.png' alt="Раскрыть список"/>
+        </div>
 
-      <div>
-        <button @click="$router.push('/projectMain')">Главная страница</button>
-        <button>Добавить задачу</button>
-        <button @click="$router.push('/kanban')">Доска активных задач</button>
-        <button @click="$router.push('/taskList')">Список задач</button>
+
+        <div class="entered__buttons">
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/')"><span>На главную</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/changePassword')"><span>Изменить пароль</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/createProject')"><span>Создать проект</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/auth')"><span>Выйти</span><i></i></button>
+        </div>
       </div>
 
-     <div>
-       <form @submit.prevent="addTask">
-         <p>Введите название задачи</p>
-         <input v-model="name"  minlength="3" maxlength="50">
-         <p>Введите описание задачи</p>
-         <textarea  v-model="desc" minlength="5" maxlength="500"></textarea>
-
-         <p>Исполнитель</p>
-         <select v-model="chosen">
-           <option v-for="user in this.users" v-bind:value="user.value" v-bind:key="user.value">
-             {{user.text}}
-           </option>
-         </select>
+    </div>
 
 
-         <button type="submit">Создать задачу</button>
+    <div>
+
+      <div class="project-header">
+
+        <div class="project-nav" v-if="!hideNav" v-show="!showModal">
+          <button data-text="Главная страница" @click="$router.push('/projectMain')">Главная страница</button>
+          <button data-text="Добавить задачу">Добавить задачу</button>
+          <button data-text="Доска активных задач" @click="$router.push('/kanban')">Доска активных задач</button>
+          <button data-text="Список задач" @click="$router.push('/taskList')">Список задач</button>
+        </div>
+
+        <div class="project-nav  balancer" v-if="hideNav">
+        </div>
+      </div>
+
+      <div >
+        <div class="page-form-wide" v-show="!showModal">
+          <form @submit.prevent="addTask">
+            <div class="form-wide-element">
+              <p>Введите название задачи  <input v-model="name"  minlength="3" maxlength="50"></p>
+
+            </div>
+
+            <div class="form-wide-text-area">
+              <p>Введите описание задачи</p>
+              <textarea  v-model="desc" minlength="5" maxlength="500"></textarea>
+            </div>
+
+
+            <div class="form-wide-select">
+              <p>
+                Исполнитель
+              </p>
+              <select v-model="chosen">
+                <option v-for="user in this.users" v-bind:value="user.value" v-bind:key="user.value">
+                  {{user.text}}
+                </option>
+                </select>
+            </div>
+            <button class="button" style="--clr:#ffff00" type="submit"><span>Создать задачу</span><i></i></button>
        </form>
 
-       <div v-show="showModal">
-         <div class="auth__modal-background">
+        </div>
 
-         </div>
-         <div  >
-           <p>{{this.textModal}}</p>
-           <button @click="closeModal">
-             ПОНЯТНО
-           </button>
-         </div>
-       </div>
+        <div v-show="showModal">
+          <div class="modal-background">
+
+          </div>
+          <div class="modal-text-part form-wide-modal">
+            <p>{{this.textModal}}</p>
+            <button class="button" style="--clr:#00ff00"  @click="closeModal()">
+              <span>Понятно</span><i></i>
+            </button>
+          </div>
+        </div>
      </div>
 
     </div>
@@ -67,7 +96,8 @@ export default {
       textModal: '',
       name: '',
       desc: '',
-      chosen: ''
+      chosen: '',
+      hideNav: false
     }
   },
   methods: {
@@ -98,6 +128,24 @@ export default {
          this.textModal = error.response.data;
        })
 
+      }
+      else{
+
+        if(this.name.trim() == ''){
+
+          this.showModal = true;
+          this.textModal = 'Введите название задачи';
+        }
+        else{
+          if(this.chosen === ''){
+            this.showModal = true;
+            this.textModal = 'Выберите исполнителя';
+          }
+          else{
+            this.showModal = true;
+            this.textModal = 'Введите описание задачи';
+          }
+        }
       }
 
     }

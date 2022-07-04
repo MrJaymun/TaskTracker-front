@@ -1,0 +1,96 @@
+.page-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #27282c;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+.change-password{
+    margin-top: -200px;
+    font-size: 18px;
+    width: 750px;
+}
+
+.change-password button{
+    width: 90%;
+}
+.change-password input{
+    font-size: 20px;
+}
+.page-form-wide{
+    width: 800px;
+    display: block;
+    margin: 50px auto;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #27282c;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+}
+
+.form-wide-text-area{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.form-wide-element input{
+    width: 49.20%;
+}
+
+.form-wide-checkbox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-wide-checkbox p{
+    width: 50%;
+}
+
+.form-wide-checkbox input{
+    margin-right: 25%;
+    align-items: center;
+}
+
+.form-wide-text-area textarea{
+    width: 50%;
+    margin-right: 10px;
+
+}
+.form-wide-text-area p{
+    width: 50%;
+
+}
+
+.form-wide-modal{
+    margin-top: 300px;
+}
+
+.form-wide-select{
+
+    vertical-align: middle;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.form-wide-select p{
+    width: 50%;
+}
+.form-wide-select select{
+    height: 20px;
+    margin-right: 10px;
+    width: 200px;
+}
+
+.form-wide-select-huge{
+    height: 30px !important;
+    font-size: 24px !important;
+
+}

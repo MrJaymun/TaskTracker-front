@@ -1,43 +1,76 @@
 <template>
-  <div>
-    <div>
-      <p>Вы вошли как {{this.login}}</p>
-      <button>На главную</button>
-      <button @click="$router.push('/changePassword')">Изменить пароль</button>
-      <button @click="$router.push('/createProject')">Создать проект</button>
-      <button @click="$router.push('/auth')">Выйти</button>
+  <div class="body">
+    <div class="header">
+
+      <div class="entered">
+        <div class="entered__hello">
+          <p>Вы вошли как {{this.login}}</p>
+          <img src='@/assets/arrowdown.png' alt="Раскрыть список"/>
+        </div>
+
+
+        <div class="entered__buttons">
+          <button class="button" style="--clr:#ffff00"><span>На главную</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/changePassword')"><span>Изменить пароль</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/createProject')"><span>Создать проект</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/auth')"><span>Выйти</span><i></i></button>
+        </div>
+      </div>
+
     </div>
-    <div>
+
+    <div class="list">
 
       <p>{{this.errorMessage}}</p>
-
-      <p>Введите название проекта</p>
-      <input v-model="filteredMy">
+      <p class="list__name">Ваши проекты</p>
 
       <div>
-        <MyProjectUnit v-for="project in this.filterMy"
-                :key="project.id"
-                :id="project.id"
-                :name="project.name"
-                :author="project.author"
-                :userCount="project.userCount"
-                :isPersonal="project.isPersonal"
-        >
-        </MyProjectUnit>
+        <div class="list__filter">
+          <p>Введите название проекта</p>
+          <input v-model="filteredMy">
+        </div>
+
+
+        <div>
+          <MyProjectUnit v-for="project in this.filterMy"
+                         :key="project.id"
+                         :id="project.id"
+                         :name="project.name"
+                         :author="project.author"
+                         :userCount="project.userCount"
+                         :isPersonal="project.isPersonal"
+          >
+          </MyProjectUnit>
+        </div>
+
       </div>
-      <p>Доступные проекты</p>
-      <p>Введите название проекта</p>
-      <input v-model="filteredAvail">
+
+      <hr class="line">
+
       <div>
-        <AvailProjectUnit v-for="project in this.filterAvail"
-                       :key="project.id"
-                       :id="project.id"
-                       :name="project.name"
-                       :author="project.author"
-                       :userCount="project.userCount"
-        >
-        </AvailProjectUnit>
+
+
+        <p class="list__name">Доступные проекты</p>
+
+
+        <div class="list__filter">
+        <p>Введите название проекта</p>
+        <input v-model="filteredAvail">
+        </div>
+
+        <div>
+          <AvailProjectUnit v-for="project in this.filterAvail"
+                            :key="project.id"
+                            :id="project.id"
+                            :name="project.name"
+                            :author="project.author"
+                            :userCount="project.userCount"
+          >
+          </AvailProjectUnit>
+        </div>
+
       </div>
+
     </div>
   </div>
 </template>

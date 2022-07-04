@@ -1,73 +1,90 @@
 <template>
-  <div>
-    <div>
-      <p>Вы вошли как {{this.login}}</p>
-      <button @click="$router.push('/')">На главную</button>
-      <button @click="$router.push('/changePassword')">Изменить пароль</button>
-      <button @click="$router.push('/createProject')">Создать проект</button>
-      <button @click="$router.push('/auth')">Выйти</button>
-    </div>
+  <div class="body">
+    <div class="header">
 
-    <div>
+      <div class="entered" @mouseover="hideNav = true" @mouseleave="hideNav = false">
+        <div class="entered__hello">
+          <p>Вы вошли как {{this.login}}</p>
+          <img src='@/assets/arrowdown.png' alt="Раскрыть список"/>
+        </div>
 
-      <div>
-        <button @click="$router.push('/projectMain')">Главная страница</button>
-        <button @click="$router.push('/createTask')">Добавить задачу</button>
-        <button @click="$router.push('/kanban')">Доска активных задач</button>
-        <button @click="$router.push('/taskList')">Список задач</button>
+
+        <div class="entered__buttons">
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/')"><span>На главную</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/changePassword')"><span>Изменить пароль</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/createProject')"><span>Создать проект</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/auth')"><span>Выйти</span><i></i></button>
+        </div>
       </div>
 
-
-      <p>Статус:</p>
-      <select v-model="status">
-        <option v-for="status in this.statuses" v-bind:value="status.value" v-bind:key="status.value">
-          {{status.text}}
-        </option>
-      </select>
-
-      <button @click="changeStatus">Подтвердить новый статус</button>
-
-      <p>Задача:</p>
+    </div>
 
 
+    <div>
 
-      <input v-model="name" :readonly=noChanging class="name">
+      <div class="project-header">
+
+        <div class="project-nav" v-if="!hideNav">
+          <button data-text="Главная страница" @click="$router.push('/projectMain')">Главная страница</button>
+          <button data-text="Добавить задачу" @click="$router.push('/createTask')">Добавить задачу</button>
+          <button data-text="Доска активных задач" @click="$router.push('/kanban')">Доска активных задач</button>
+          <button data-text="Список задач" @click="$router.push('/taskList')">Список задач</button>
+        </div>
+
+        <div class="project-nav  balancer" v-if="hideNav">
+        </div>
+      </div>
+
+      <div class="info-page">
+         <div class="form-wide-select">
+            <p>Статус:</p>
+           <select v-model="status" class="form-wide-select-huge">
+                <option v-for="status in this.statuses" v-bind:value="status.value" v-bind:key="status.value">
+                    {{status.text}}
+                </option>
+            </select>
+          </div>
+
+        <button  class="button confirm-button" style="--clr:#ffff00" @click="changeStatus"> <span>Подтвердить новый статус</span><i></i></button>
+
+        <p  class="info-page__block-name">Задача</p>
+        <input class="name" v-model="name" :readonly=noChanging minlength="3" maxlength="50">
+
 
       <p>Исполнитель: {{this.performer}}</p>
 
 
 
 
-      <p>Описание задачи:</p>
-      <textarea v-model="description" class="textarea" :readonly=noChanging></textarea>
+        <p class="info-page__block-name">Описание задачи</p>
+      <textarea v-model="description" class="textarea" :readonly=noChanging minlength="5" maxlength="500"></textarea>
 
-      <button  @click="beginChanging">Изменить</button>
-      <button  v-if="!noChanging" @click="this.noChanging = true">Отменить</button>
-      <button  v-if="!noChanging" @click="changeData">Сохранить</button>
+        <div  class="data-changing">
+          <button class="button data-changing-button" style="--clr:#ffff00" v-if="noChanging" @click="beginChanging"><span>Изменить</span><i></i></button>
+          <div class="buttons-decision" v-if="!noChanging">
+            <button class="button decision-button" style="--clr:#ffff00" @click="this.noChanging = true"><span>Отменить изменения</span><i></i></button>
+            <button class="button decision-button" style="--clr:#ffff00"  @click="changeData"><span>Сохранить изменения</span><i></i></button>
+          </div>
 
+          <button class="button data-changing-button" data-changing-button style="--clr:#ffff00"  v-if="noDeleting" @click="this.noDeleting = false"><span>Удалить</span><i></i></button>
 
-
-      <p v-if="isBegin">Время начала: {{this.beginDate}}</p>
-      <p v-if="isEnd">Время конца: {{this.endDate}}</p>
-
-
-      <div v-show="showModal">
-        <div class="auth__modal-background">
-
+          <div class="buttons-decision" v-if="!noDeleting">
+            <button class="button decision-button" style="--clr:#ffff00"  @click="this.noDeleting = true"><span>Отменить удаление</span><i></i></button>
+            <button class="button decision-button" style="--clr:#ffff00"   @click="deleteData"><span>Подтвердить удаление</span><i></i></button>
+          </div>
         </div>
-        <div  class="auth__modal-text-part">
-          <p>{{this.textModal}}</p>
-          <button class="auth__form-button">
-            ПОНЯТНО
-          </button>
-        </div>
+
+
+
+        <p v-if="isBegin">Время начала: {{this.beginDate}}</p>
+        <p v-if="isEnd">Время конца: {{this.endDate}}</p>
       </div>
 
-      <button @click="this.noDeleting = false">Удалить</button>
-      <button  v-if="!noDeleting" @click="this.noDeleting = true">Отменить удаление</button>
-      <button  v-if="!noDeleting" @click="deleteData">Подтвердить удаление</button>
-      <div>
-        <p>Комментарии</p>
+
+
+
+      <div class="list bottom">
+        <p  class="info-page__block-name">Комментарии</p>
         <div>
           <p v-if="this.getComments.length === 0"> Комментариев пока что нет</p>
           <CommentUnit v-for="comment in this.getComments"
@@ -83,9 +100,10 @@
 
 
         <p>Оставить комментарий как {{this.login}}</p>
-        <textarea  v-model="newComment"  maxlength="100" ></textarea>
-        <button @click="comment">Оставить комментарий</button>
+        <textarea  class="textarea-comment" v-model="newComment"  maxlength="200" ></textarea>
+        <button class="button comment-button" style="--clr:#ffff00" @click="comment"><span>Оставить комментарий</span><i></i></button>
       </div>
+
     </div>
   </div>
 </template>
@@ -114,13 +132,13 @@ export default {
           { text: 'Finished', value: 'Finished'},
           { text: 'Done', value: 'Done'}
       ],
-      showModal: false,
-      textModal: "",
+
       noChanging: true,
       isBegin: false,
       isEnd: false,
       newComment: '',
-      noDeleting: true
+      noDeleting: true,
+      hideNav: false
 
     }
   },

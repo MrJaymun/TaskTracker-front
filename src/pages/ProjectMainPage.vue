@@ -1,69 +1,91 @@
 <template>
-  <div>
-    <div>
-      <p>Вы вошли как {{this.login}}</p>
-      <button @click="$router.push('/')">На главную</button>
-      <button @click="$router.push('/changePassword')">Изменить пароль</button>
-      <button @click="$router.push('/createProject')">Создать проект</button>
-      <button @click="$router.push('/auth')">Выйти</button>
-    </div>
+  <div class="body">
+    <div v-show="!showModal" class="header">
 
-    <div>
+      <div class="entered" @mouseover="hideNav = true" @mouseleave="hideNav = false">
+        <div class="entered__hello">
+          <p>Вы вошли как {{this.login}}</p>
+          <img src='@/assets/arrowdown.png' alt="Раскрыть список"/>
+        </div>
 
-      <div>
-        <button>Главная страница</button>
-        <button @click="$router.push('/createTask')">Добавить задачу</button>
-        <button @click="$router.push('/kanban')">Доска активных задач</button>
-        <button @click="$router.push('/taskList')">Список задач</button>
+
+        <div class="entered__buttons">
+
+          <button  class="button" style="--clr:#ffff00" @click="$router.push('/')"> <span>На главную</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/changePassword')"><span>Изменить пароль</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/createProject')"><span>Создать проект</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/auth')"><span>Выйти</span><i></i></button>
+        </div>
       </div>
 
-      <input v-model="name" :readonly=noChanging class="name">
-      <p>Описание проекта:</p>
-      <textarea v-model="description" class="textarea" :readonly=noChanging></textarea>
-      <br>
-      <button v-if="isCreator && noChanging" @click="beginChanging">Изменить</button>
-      <button v-if="isCreator && !noChanging" @click="stopChanging">Отменить</button>
-      <button v-if="isCreator && !noChanging" @click="changeData">Сохранить</button>
-      <br>
-      <button v-if="isCreator && noDeleting" @click="beginDeleting">Удалить</button>
-      <button v-if="isCreator && !noDeleting" @click="stopDeleting">Отменить удаление</button>
-      <button v-if="isCreator && !noDeleting " @click="deletePr">Подтвердить удаление</button>
+    </div>
+
+
+    <div>
+
+      <div v-show="!showModal" class="project-header">
+
+        <div class="project-nav" v-if="!hideNav">
+          <button data-text="Главная страница">Главная страница</button>
+          <button data-text="Добавить задачу" @click="$router.push('/createTask')">Добавить задачу</button>
+          <button data-text="Доска активных задач" @click="$router.push('/kanban')">Доска активных задач</button>
+          <button data-text="Список задач" @click="$router.push('/taskList')">Список задач</button>
+        </div>
+
+        <div class="project-nav  balancer" v-if="hideNav">
+        </div>
+      </div>
+
+      <div class="info-page">
+
+        <p v-show="!showModal" class="info-page__block-name">Проект</p>
+        <input v-show="!showModal" v-model="name" :readonly=noChanging class="name" minlength="3" maxlength="50">
+
+
+        <p v-show="!showModal" class="info-page__block-name">Описание проекта</p>
+        <textarea v-show="!showModal" v-model="description" class="textarea" :readonly=noChanging minlength="5" maxlength="500"></textarea>
+
+        <div v-show="!showModal" class="data-changing">
+            <button class="button data-changing-button" style="--clr:#ffff00" v-if="isCreator && noChanging" @click="beginChanging"><span>Изменить</span><i></i></button>
+            <div class="buttons-decision" v-if="isCreator && !noChanging">
+                  <button class="button decision-button" style="--clr:#ffff00"  @click="stopChanging"><span>Отменить изменения</span><i></i></button>
+                  <button class="button decision-button" style="--clr:#ffff00"  @click="changeData"><span>Сохранить изменения</span><i></i></button>
+            </div>
+
+            <button class="button data-changing-button" data-changing-button style="--clr:#ffff00"  v-if="isCreator && noDeleting" @click="beginDeleting"><span>Удалить</span><i></i></button>
+
+            <div class="buttons-decision" v-if="isCreator && !noDeleting">
+                <button class="button decision-button" style="--clr:#ffff00"  @click="stopDeleting"><span>Отменить удаление</span><i></i></button>
+                <button class="button decision-button" style="--clr:#ff0000"  @click="deletePr"><span>Подтвердить удаление</span><i></i></button>
+            </div>
+        </div>
 
       <div v-show="showModal">
-        <div class="auth__modal-background">
+        <div class="modal-background">
 
         </div>
-        <div  class="auth__modal-text-part">
+        <div  class="modal-text-part form-wide-modal">
           <p>{{this.textModal}}</p>
-          <button class="auth__form-button" @click="endDeleting">
-            ПОНЯТНО
+          <button class="button" style="--clr:#00ff00" @click="endDeleting">
+            <span>Понятно</span ><i></i>
           </button>
         </div>
       </div>
-
-      <p>Активных задач:</p>
-      <p>{{this.activeTasks}}</p>
-
-      <p>Всего задач:</p>
-      <p>{{this.allTasks}}</p>
-
-      <p>Автор проекта:</p>
-      <p>{{this.author}}</p>
-
-      <p>Участники проекта:</p>
-
-      <div v-for="user in this.users" v-bind:key="user">
-        {{user}}
+        <p v-show="!showModal">Активных задач:&nbsp;&nbsp;&nbsp;  {{this.activeTasks}}</p>
+        <p v-show="!showModal">Всего задач:&nbsp;&nbsp;&nbsp;{{this.allTasks}} </p>
+        <p v-show="!showModal">Автор проекта:&nbsp;&nbsp;&nbsp;{{this.author}} </p>
+        <p v-show="!showModal" class="info-page__block-name">Участники проекта</p>
+        <div v-show="!showModal" v-for="user in this.users" v-bind:key="user">
+          {{user}}
+        </div>
       </div>
-
-
-
-
     </div>
   </div>
 </template>
 
 <script>
+
+
 import {mapActions} from "vuex";
 import router from "@/router";
 
@@ -83,10 +105,14 @@ export default {
       allTasks: 0,
       activeTasks: 0,
       isCreator: false,
-      noDeleting: true
+      noDeleting: true,
+      hideNav: false
     }
   },
   methods:{
+
+
+
     ...mapActions(['goToProject', 'changeTheProject', 'deleteProject']),
     beginChanging(){
      this.noChanging = false
@@ -170,13 +196,5 @@ export default {
 </script>
 
 <style scoped>
-.textarea{
-  width: 80%;
-  resize: none;
-  height: 200px;
-}
 
-.name{
-  width: 30%;
-}
 </style>

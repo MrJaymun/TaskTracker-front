@@ -1,29 +1,48 @@
 <template>
-  <div>
-    <div>
-      <p>Вы вошли как {{this.login}}</p>
-      <button @click="$router.push('/')">На главную</button>
-      <button @click="$router.push('/changePassword')">Изменить пароль</button>
-      <button @click="$router.push('/createProject')">Создать проект</button>
-      <button @click="$router.push('/auth')">Выйти</button>
+  <div class="body">
+    <div class="header">
+
+      <div class="entered" @mouseover="hideNav = true" @mouseleave="hideNav = false">
+        <div class="entered__hello">
+          <p>Вы вошли как {{this.login}}</p>
+          <img src='@/assets/arrowdown.png' alt="Раскрыть список"/>
+        </div>
+
+
+        <div class="entered__buttons">
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/')"><span>На главную</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/changePassword')"><span>Изменить пароль</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/createProject')"><span>Создать проект</span><i></i></button>
+          <button class="button" style="--clr:#ffff00" @click="$router.push('/auth')"><span>Выйти</span><i></i></button>
+        </div>
+      </div>
+
     </div>
+
     <div>
-      <div>
-        <button @click="$router.push('/projectMain')">Главная страница</button>
-        <button @click="$router.push('/createTask')">Добавить задачу</button>
-        <button>Доска активных задач</button>
-        <button @click="$router.push('/taskList')">Список задач</button>
+      <div class="project-header">
+
+        <div class="project-nav" v-if="!hideNav">
+          <button data-text="Главная страница"  @click="$router.push('/projectMain')">Главная страница </button>
+          <button data-text="Добавить задачу" @click="$router.push('/createTask')">Добавить задачу</button>
+          <button data-text="Доска активных задач">Доска активных задач</button>
+          <button data-text="Список задач" @click="$router.push('/taskList')">Список задач</button>
+        </div>
+
+        <div class="project-nav  balancer" v-if="hideNav">
+        </div>
       </div>
 
       <div v-if="isEmpty">
-        Пока что нет задач
+        <p class="list__name">Пока нет задач</p>
       </div>
-      <div class="kanban__main">
+      <div class="kanban__main" v-if="!isEmpty">
         <div class="kanban__slave"
              @drop="onDrop($event, 'Planned')"
              @dragover.prevent
         >
           <p v-if="this.getPlannedTasks.length == 0">Нет запланированных задач</p>
+          <p class="list__name" v-if="this.getPlannedTasks.length != 0">Запланированные задачи</p>
           <KanbanTaskUnit v-for="task in this.getPlannedTasks"
                         :key="task.id"
                         :id="task.id"
@@ -40,6 +59,7 @@
              @dragover.prevent
         >
           <p v-if="this.getActiveTasks.length == 0">Нет активных задач</p>
+          <p class="list__name" v-if="this.getActiveTasks.length != 0">Активные задачи</p>
           <KanbanTaskUnit v-for="task in this.getActiveTasks"
                           :key="task.id"
                           :id="task.id"
@@ -56,6 +76,7 @@
              @dragover.prevent
         >
           <p v-if="this.getFinishedTasks.length == 0">Нет выполненных задач</p>
+          <p class="list__name" v-if="this.getFinishedTasks.length != 0">Выполненные задачи</p>
           <KanbanTaskUnit v-for="task in this.getFinishedTasks"
                           :key="task.id"
                           :id="task.id"
@@ -84,8 +105,8 @@ export default {
   data(){
     return{
       login: '',
-      isEmpty: false
-      //Пустые столбцы
+      isEmpty: false,
+      hideNav: false
     }
   },
   methods:{
@@ -156,11 +177,5 @@ export default {
 
 <style scoped>
 
-.kanban__main{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-  .kanban__slave{
-    margin-left: 2%;
-  }
+
 </style>
