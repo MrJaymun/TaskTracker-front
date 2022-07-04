@@ -69,7 +69,7 @@
 }
 
 .form-wide-modal{
-    margin-top: 300px;
+    margin-top: 300px !important;
 }
 
 .form-wide-select{

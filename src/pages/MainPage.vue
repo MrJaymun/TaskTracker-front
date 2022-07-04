@@ -111,7 +111,7 @@ export default {
     },
     filterAvail(){
       return this.getAvailProjects.filter( filter => {
-            if (this.filteredMy.trim() === '') {
+            if (this.filteredAvail.trim() === '') {
               return filter
             }
             else{
