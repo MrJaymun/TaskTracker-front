@@ -25,3 +25,7 @@ form:hover{
     box-shadow: 0 0 35px #878787;
     transition: 0.5s;
 }
+
+.auth-form{
+    width: 420px;
+}

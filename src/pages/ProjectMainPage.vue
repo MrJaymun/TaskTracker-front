@@ -66,7 +66,7 @@
         </div>
         <div  class="modal-text-part form-wide-modal">
           <p>{{this.textModal}}</p>
-          <button class="button" style="--clr:#00ff00" @click="endDeleting">
+          <button class="button" style="--clr:#ffff00" @click="endDeleting">
             <span>Понятно</span ><i></i>
           </button>
         </div>
@@ -74,9 +74,11 @@
         <p v-show="!showModal">Активных задач:&nbsp;&nbsp;&nbsp;  {{this.activeTasks}}</p>
         <p v-show="!showModal">Всего задач:&nbsp;&nbsp;&nbsp;{{this.allTasks}} </p>
         <p v-show="!showModal">Автор проекта:&nbsp;&nbsp;&nbsp;{{this.author}} </p>
+        <div class="bottom center">
         <p v-show="!showModal" class="info-page__block-name">Участники проекта</p>
-        <div v-show="!showModal" v-for="user in this.users" v-bind:key="user">
+        <div v-show="!showModal" v-for="user in this.users" v-bind:key="user" >
           {{user}}
+        </div>
         </div>
       </div>
     </div>

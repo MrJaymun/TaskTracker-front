@@ -32,7 +32,7 @@
         </div>
         <div class="modal-text-part">
           <p>{{this.textModal}}</p>
-          <button class="button" style="--clr:#00ff00"  @click="closeModal()">
+          <button class="button" style="--clr:#ffff00"  @click="closeModal()">
             <span>Понятно</span><i></i>
           </button>
         </div>

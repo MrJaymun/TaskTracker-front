@@ -1,6 +1,6 @@
 <template>
   <div class="page-form">
-    <form v-show="!showModal" @submit.prevent="tryToRegister">
+    <form v-show="!showModal" @submit.prevent="tryToRegister" class="auth-form">
       <p>Логин<input v-model="login"  minlength="5" maxlength="12"></p>
       <p>Пароль<input type="password" v-model="password"  minlength="5" maxlength="20"></p>
       <p>Повторите пароль<input type="password" v-model="repeatPassword"  minlength="5" maxlength="20"></p>
@@ -14,10 +14,10 @@
       <div class="modal-text-part">
 
         <p>{{this.textModal}}</p>
-        <button class="button" style="--clr:#00ff00" v-show="isBad" @click="closeModal">
+        <button class="button" style="--clr:#ffff00" v-show="isBad" @click="closeModal">
           <span>Понятно</span><i></i>
         </button>
-        <button class="button" style="--clr:#00ff00" v-show="isAdded" @click="goToAuth">
+        <button class="button" style="--clr:#ffff00" v-show="isAdded" @click="goToAuth">
           <span>Отлично</span><i></i>
         </button>
 

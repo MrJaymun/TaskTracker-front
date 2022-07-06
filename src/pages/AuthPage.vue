@@ -1,7 +1,7 @@
 <template>
   <div class="page-form">
   <div>
-  <form v-show="!showModal" @submit.prevent="tryToLogin">
+  <form v-show="!showModal" @submit.prevent="tryToLogin" class="auth-form">
     <p>Логин<input v-model="login"  minlength="5" maxlength="12"></p>
     <p>Пароль<input v-model="password"  type="password" minlength="5" maxlength="20"></p>
     <button class="button" type="submit" style="--clr:#ffff00"><span>Войти</span><i></i></button>
@@ -14,7 +14,7 @@
     <div class="modal-text-part">
 
         <p>{{this.textModal}}</p>
-        <button class="button" style="--clr:#00ff00"  @click="closeModal">
+        <button class="button" style="--clr:#ffff00"  @click="closeModal">
           <span>Понятно</span><i></i>
         </button>
 

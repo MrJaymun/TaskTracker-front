@@ -38,7 +38,7 @@
         </div>
         <div class="modal-text-part form-wide-modal">
           <p>{{this.textModal}}</p>
-          <button class="button" style="--clr:#00ff00" @click="toProjectMainPage">
+          <button class="button" style="--clr:#ffff00" @click="toProjectMainPage">
             <span>Понятно</span><i></i>
           </button>
         </div>
